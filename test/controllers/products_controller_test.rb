@@ -9,6 +9,19 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get products_url
     assert_response :success
+    assert_select 'h1', 'Products'
+    assert_select 'a[href=?]', new_product_path, text: 'New Product'
+
+    Product.all.each do |product|
+      assert_select 'img', src: { match: /#{product.image_url}/ }
+      assert_select 'a[href=?]', product_path(product), text: 'Show'
+      assert_select 'a[href=?]', edit_product_path(product), text: 'Edit'
+
+      assert_select 'a[href=?][data-method=?]', product_path(product),
+        'delete', text: 'Destroy'
+
+      assert_select 'p', match: /#{product.description.gsub(/<.*>/, '')[0, 80]}/
+    end
   end
 
   test "should get new" do

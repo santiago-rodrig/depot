@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   validates :title, :description, :image_url, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0.01, message: 'Price must be greater that 1 cent' }
+  validates :price, numericality: { greater_than_or_equal_to: 0.01, message: 'Price must be at least 1 cent' }
   validates :title, uniqueness: true, length: { minimum: 10 }
 
   validates :image_url, allow_blank: true, format: {
