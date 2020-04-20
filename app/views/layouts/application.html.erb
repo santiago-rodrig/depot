@@ -14,6 +14,11 @@
     <header class="main">
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
       <h1><%= @page_title %></h1>
+      <% if @counter && @counter > 5 %>
+        <p id="counter">
+        You've visited the front page <%= pluralize(@counter, 'time') %>
+        </p>
+      <% end %>
     </header>
     <section class="content">
       <nav class="side_nav">

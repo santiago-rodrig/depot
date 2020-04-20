@@ -90,3 +90,23 @@ header.main {
     padding: 0.5em;
   }
 }
+
+.notice, #notice {
+  background: #ffb;
+  border-radius: 0.5em;
+  border: 0.177em solid #882;
+  color: #882;
+  font-weight: bold;
+  margin-bottom: 1em;
+  padding: 1em 1.414em;
+  text-align: center;
+}
+
+#counter {
+  margin-bottom: 0;
+  margin-left: 0.354em;
+  font-size: 1.1em;
+  color: white;
+  font-weight: bold;
+  padding-bottom: 0.354em;
+}
