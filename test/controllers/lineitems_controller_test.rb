@@ -24,7 +24,7 @@ class LineitemsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to cart_url(Lineitem.last.cart)
     follow_redirect!
     assert_select 'h2', 'Your Pragmatic Cart'
-    assert_select 'li', 'Programming Ruby 1.9'
+    assert_select 'td', 'Programming Ruby 1.9'
   end
 
   test "should show lineitem" do
@@ -38,7 +38,9 @@ class LineitemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update lineitem" do
-    patch lineitem_url(@lineitem), params: { lineitem: { cart_id: @lineitem.cart_id, product_id: @lineitem.product_id } }
+    patch lineitem_url(@lineitem), params: {
+      lineitem: { product_id: @lineitem.product_id }
+    }
     assert_redirected_to lineitem_url(@lineitem)
   end
 

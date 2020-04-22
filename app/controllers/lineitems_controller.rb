@@ -3,6 +3,7 @@ class LineitemsController < ApplicationController
 
   before_action :set_cart, only: :create
   before_action :set_lineitem, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_item
 
   # GET /lineitems
   # GET /lineitems.json
@@ -29,12 +30,11 @@ class LineitemsController < ApplicationController
   def create
     session.delete(:counter)
     product = Product.find(params[:product_id])
-    @lineitem = @cart.lineitems.build(product: product)
+    @lineitem = @cart.add_product(product)
 
     respond_to do |format|
       if @lineitem.save
-        format.html { redirect_to @lineitem.cart,
-                      notice: 'Lineitem was successfully created.' }
+        format.html { redirect_to @lineitem.cart }
         format.json { render :show, status: :created, location: @lineitem }
       else
         format.html { render :new }
@@ -60,21 +60,32 @@ class LineitemsController < ApplicationController
   # DELETE /lineitems/1
   # DELETE /lineitems/1.json
   def destroy
-    @lineitem.destroy
+    cart = @lineitem.cart
+    if @lineitem.quantity == 1
+      @lineitem.destroy
+    else
+      @lineitem.quantity -= 1
+      @lineitem.save
+    end
     respond_to do |format|
-      format.html { redirect_to lineitems_url, notice: 'Lineitem was successfully destroyed.' }
+      format.html { redirect_to cart, notice: 'Lineitem was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lineitem
-      @lineitem = Lineitem.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lineitem
+    @lineitem = Lineitem.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def lineitem_params
-      params.require(:lineitem).permit(:product_id, :cart_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def lineitem_params
+    params.require(:lineitem).permit(:product_id)
+  end
+
+  def invalid_item
+    logger.error "Attemp to access invalid item #{params[:id]}"
+    redirect_to store_index_url, notice: 'Invalid line item'
+  end
 end

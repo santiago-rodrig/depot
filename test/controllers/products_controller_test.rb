@@ -2,13 +2,13 @@ require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @product = products(:one)
+    @product = products(:crystal)
     @title = "The Great Book #{rand(1000)}"
   end
 
   test "can't delete product in cart" do
     assert_no_difference('Product.count') do
-      delete product_url(products(:two))
+      delete product_url(products(:ruby))
     end
 
     assert_redirected_to products_url
