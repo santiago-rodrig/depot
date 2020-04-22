@@ -68,7 +68,13 @@ class LineitemsController < ApplicationController
       @lineitem.save
     end
     respond_to do |format|
-      format.html { redirect_to cart, notice: 'Lineitem was successfully destroyed.' }
+      format.html do
+        if cart.lineitems.any?
+          redirect_to cart, notice: 'Lineitem was successfully destroyed.'
+        else
+          redirect_to store_index_url, notice: 'Your cart is empty.'
+        end
+      end
       format.json { head :no_content }
     end
   end

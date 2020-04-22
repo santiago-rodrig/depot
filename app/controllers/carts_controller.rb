@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_cart_is_valid
+  before_action :ensure_cart_is_valid, only: :show
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
@@ -82,7 +82,7 @@ class CartsController < ApplicationController
   end
 
   def ensure_cart_is_valid
-    unless @cart.id == session[:cart_id]
+    unless session[:cart_id] == params[:id].to_i
       redirect_to store_index_url, notice: 'That cart is not of your belonging'
     end
   end
