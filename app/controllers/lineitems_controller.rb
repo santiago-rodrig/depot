@@ -34,7 +34,8 @@ class LineitemsController < ApplicationController
 
     respond_to do |format|
       if @lineitem.save
-        format.html { redirect_to @lineitem.cart }
+        format.html { redirect_to store_index_url }
+        format.js
         format.json { render :show, status: :created, location: @lineitem }
       else
         format.html { render :new }
@@ -60,21 +61,25 @@ class LineitemsController < ApplicationController
   # DELETE /lineitems/1
   # DELETE /lineitems/1.json
   def destroy
-    cart = @lineitem.cart
+    @cart = @lineitem.cart
+
     if @lineitem.quantity == 1
       @lineitem.destroy
     else
       @lineitem.quantity -= 1
       @lineitem.save
     end
+
     respond_to do |format|
       format.html do
         if cart.lineitems.any?
-          redirect_to cart, notice: 'Lineitem was successfully destroyed.'
+          redirect_to store_index_url, notice: 'Lineitem was successfully destroyed.'
         else
           redirect_to store_index_url, notice: 'Your cart is empty.'
         end
       end
+
+      format.js
       format.json { head :no_content }
     end
   end

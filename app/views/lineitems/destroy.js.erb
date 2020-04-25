@@ -1,0 +1,12 @@
+var cart = document.getElementById('cart');
+var item;
+
+// remove the cart if it is empty
+<% if @cart.lineitems.empty? %>
+  cart.parentNode.removeChild(cart);
+<% else %>
+  cart.innerHTML = '<%= j render(@cart) %>';
+  item = document.getElementById('lineitem-<%= @lineitem.id %>');
+
+  if (item) item.classList.add('lineitem-highlight-2');
+<% end %>

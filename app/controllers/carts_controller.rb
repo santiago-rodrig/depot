@@ -58,9 +58,12 @@ class CartsController < ApplicationController
   def destroy
     @cart.destroy if session[:cart_id] == @cart.id
     session.delete(:cart_id)
+
     respond_to do |format|
       format.html { redirect_to store_index_url,
                     notice: 'Your cart is currently empty' }
+
+      format.js { flash[:notice] = 'Your cart is currently empty' }
       format.json { head :no_content }
     end
   end

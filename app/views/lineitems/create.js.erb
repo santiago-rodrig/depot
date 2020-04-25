@@ -1,0 +1,19 @@
+var cart = document.getElementById('cart');
+var notice = document.getElementById('notice');
+var navBar = document.querySelector('nav.side_nav');
+var item;
+
+if (cart) {
+  cart.innerHTML = '<%= j render(@cart) %>';
+} else {
+  cart = document.createElement('div');
+  cart.id = 'cart';
+  cart.classList.add('carts');
+  cart.innerHTML = '<%= j render(@cart) %>';
+  navBar.prepend(cart);
+}
+
+item = document.getElementById('lineitem-<%= @lineitem.id %>');
+item.classList.add('lineitem-highlight');
+
+if (notice) notice.style.display = 'none';

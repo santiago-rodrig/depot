@@ -1,0 +1,6 @@
+<tr id="lineitem-<%= lineitem.id %>">
+  <td class="quantity"><%= lineitem.quantity %></td>
+  <td><%= lineitem.product.title %></td>
+  <td class="price"><%= number_to_currency(lineitem.total_price) %></td>
+  <td><%= button_to 'Remove', lineitem, method: :delete, remote: true %></td>
+</tr>

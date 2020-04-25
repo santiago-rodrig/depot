@@ -1,0 +1,5 @@
+var cart = document.getElementById('cart');
+var notice = document.getElementById('notice');
+
+cart.parentNode.removeChild(cart);
+notice.textContent = '<%= flash[:notice] %>';

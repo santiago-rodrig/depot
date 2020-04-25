@@ -110,3 +110,18 @@ header.main {
   font-weight: bold;
   padding-bottom: 0.354em;
 }
+
+#cart {
+  h2 {
+    margin-top: 0;
+  }
+
+  background: white;
+  border-radius: 0.5em;
+  margin: 1em;
+  padding: 1.414em;
+
+  @media (min-width: 30em) {
+    margin: 0; // desktop doesn't need margin
+  }
+}
