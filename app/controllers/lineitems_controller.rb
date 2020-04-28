@@ -72,7 +72,7 @@ class LineitemsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if cart.lineitems.any?
+        if @cart.lineitems.any?
           redirect_to store_index_url, notice: 'Lineitem was successfully destroyed.'
         else
           redirect_to store_index_url, notice: 'Your cart is empty.'

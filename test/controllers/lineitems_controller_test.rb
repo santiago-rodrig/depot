@@ -17,8 +17,7 @@ class LineitemsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create lineitem" do
     assert_difference('Lineitem.count') do
-      post lineitems_url, params: { lineitem: {},
-                                    product_id: products(:ruby).id }
+      post lineitems_url, params: { product_id: products(:ruby).id }
     end
 
     assert_redirected_to store_index_url
@@ -30,13 +29,12 @@ class LineitemsControllerTest < ActionDispatch::IntegrationTest
   test 'should create lineitem via ajax' do
     assert_difference('Lineitem.count') do
       post lineitems_url, params: {
-        lineitem: {},
         product_id: products(:ruby).id
       }, xhr: true
     end
 
     assert_response :success
-    assert_match /<tr class=\\"lineitem\-highlight/, @response.body
+    assert_match /lineitem-highlight/, @response.body
   end
 
   test "should show lineitem" do

@@ -51,4 +51,17 @@
   input[type="submit"]:hover {
     background-color: #992;
   }
+
+  input[type="submit"].checkout {
+    background-color: #bfb;
+    border: solid thin #888;
+    color: black;
+    font-weight: bold;
+    margin-left: 0.354em;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
