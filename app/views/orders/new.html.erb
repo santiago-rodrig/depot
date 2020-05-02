@@ -2,3 +2,8 @@
   <h1>Please enter your details</h1>
   <%= render 'form', order: @order %>
 </section>
+<script type="text/javascript">
+  const checkout = document.getElementsByClassName('checkout')[0];
+  checkout.disabled = true;
+  checkout.style.opacity = '0.5';
+</script>
