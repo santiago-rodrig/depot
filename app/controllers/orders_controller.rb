@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    pay_type = PayType.find_by(name: params[:order][:pay_type])
+    @order = pay_type.orders.build(order_params)
     @order.add_lineitems_from_cart(@cart)
 
     respond_to do |format|
@@ -41,6 +42,7 @@ class OrdersController < ApplicationController
             notice: 'Thank you for your order.'
           )
         end
+
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -81,7 +83,7 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:name, :address, :email, :pay_type)
+    params.require(:order).permit(:name, :address, :email)
   end
 
   # Check if the cart is not empty

@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :pay_type %>
-    <%= form.select :pay_type, Order.pay_types.keys,
+    <%= form.select :pay_type, PayType.all.map(&:name),
       prompt: 'Select a payment method' %>
   </div>
 
