@@ -6,9 +6,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @latest_order = @product.orders.order(:updated_at).last
 
-    if stale?(@latest_order)
-      respond_to :atom
-    end
+    respond_to :atom if stale?(@latest_order)
   end
 
   # GET /products
