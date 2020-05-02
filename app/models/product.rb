@@ -13,6 +13,16 @@ class Product < ApplicationRecord
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
 
+  def attributes=(hash)
+    hash.each do |key, value|
+      send("#{key}=", value)
+    end
+  end
+
+  def attributes
+    { title: title, orders: orders }
+  end
+
   private
 
   def ensure_not_referenced_by_any_line_item

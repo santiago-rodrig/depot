@@ -34,3 +34,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# ignore vim generated swp files
+*.swp
+*.swo
